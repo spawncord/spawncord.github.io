@@ -8,9 +8,8 @@ document.getElementById("start-chat-btn").addEventListener("click", () => {
   if (username) {
     currentUser = username;
     showChat();
-    
     document.getElementById("chat-title").textContent = `Spawncord (Chatting as: ${currentUser})`;
-    socket.emit('set-username', username)
+    socket.emit('set-username', username);
   } else {
     alert("Please enter a valid username.");
   }
@@ -27,14 +26,18 @@ document.getElementById("send-btn").addEventListener("click", () => {
   const messageText = messageInput.value.trim();
 
   if (messageText) {
-    socket.emit('chat message', { username: currentUser, message: messageText });
-
+    socket.emit('chat message', { text: messageText });
     messageInput.value = "";
   }
 });
 
 socket.on('chat message', (data) => {
-  addMessage(data.username, data.message);
+  if (!data) return;
+  addMessage(data.username, data.text);
+});
+
+socket.on('blocked', (data) => {
+  addMessage("SERVER", data.reason);
 });
 
 function addMessage(username, message) {
@@ -52,7 +55,7 @@ function addMessage(username, message) {
 
   const timeElement = document.createElement("span");
   timeElement.classList.add("time");
-  timeElement.textContent = getCurrentTime(); // HH:MM format, this isnt in local time, so if someone can fix that please do
+  timeElement.textContent = getCurrentTime();
 
   usernameTime.appendChild(usernameElement);
   usernameTime.appendChild(timeElement);
@@ -65,7 +68,8 @@ function addMessage(username, message) {
   messageBlock.appendChild(messageElement);
 
   messagesContainer.appendChild(messageBlock);
-  messagesContainer.scrollTop = messagesContainer.scrollHeight; // Auto scroll to latest message. THIS DOESNT WORK SOMEONE PLEASE HELP
+
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
 function getCurrentTime() {
