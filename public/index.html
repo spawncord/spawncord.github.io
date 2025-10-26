@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatroom</title>
+  <link rel="stylesheet" href="style.css" />
+  
+  <!-- This is kinda important so dont remove -->
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <div id="name-prompt">
+      <input type="text" id="username-input" placeholder="Enter your name" autocomplete="off" />
+      <button id="start-chat-btn">Start Chat</button>
+  </div>
+
+  <div id="chat-title" style="display:none;">Chat</div>
+  <div id="chat-note" style="text-align:center; font-size:12px; color:#888; margin-bottom:5px;">
+    This is a spawnism safe space to get away from harrasment. Don't be stupid, be a good human being :3
+</div>
+
+  
+  <div id="chat-container" style="display:none;">
+      <div id="chat-box">
+          <div id="messages"></div>
+      </div>
+      <div id="input-area">
+          <input type="text" id="message-input" placeholder="Type a message..." />
+          <button id="send-btn"></button>
+      </div>
+  </div>
+
+    <button onclick="toggleRules()">Show Rules</button>
+    <div id="rules" style="display:none;">
+        <ul>
+            <li>Be kind; This chat is meant for people to have a safe space for us to talk about our religion. With spawnism comes a lot of drama and harrasment, so just be a good human being.</li>
+            <li>No spam; This is self explanitory.</li>
+            <li>Keep it chill; Spawnism is a very touchy subject, and we (me, im the only one working on this) want our users to feel safe, including myself</li>
+        </ul>
+    </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
