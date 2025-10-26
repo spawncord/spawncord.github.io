@@ -10,6 +10,7 @@ document.getElementById("start-chat-btn").addEventListener("click", () => {
     showChat();
     
     document.getElementById("chat-title").textContent = `Spawncord (Chatting as: ${currentUser})`;
+    socket.emit('set-username', username)
   } else {
     alert("Please enter a valid username.");
   }
